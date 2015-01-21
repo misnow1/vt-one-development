@@ -1,0 +1,33 @@
+.vtone_tab_wrapper .ui-widget-content {
+	background: none;
+	color: inherit;
+}
+
+.vtone_tab_wrapper .ui-widget {
+	font-size: 1.0em;
+	font-family: inherit;
+}
+
+.vtone_tab_wrapper .ui-widget-header {
+	background: #f36b00 url(../images/ui-bg_highlight-soft_orange_cccccc_10x100.png) repeat-x scroll 50% 50%;
+}
+
+.vtone_tab_wrapper .ui-tabs-nav {
+	padding: 0.2em;
+}
+
+.vtone_tab_wrapper .ui-tabs .ui-tabs-nav li.ui-tabs-active {
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+
+.vtone_tab_wrapper .ui-tabs-panel {
+	margin-top: 0px;
+	margin-bottom: auto;
+}
+
+p.rounded-border {
+	border: 1px solid #d6d6d6;
+	border-radius: 4px;
+	padding: 5px;
+}

@@ -1,0 +1,3 @@
+[submodule "ansible"]
+	path = ansible
+	url = https://devlab.vbi.vt.edu/misnow1/ansible.git
