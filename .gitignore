@@ -1,14 +1,22 @@
-wp-content/gallery/*
-wp-content/uploads/*
-sql/*.tar.bz2
-sql/*.tar.gz
-*
-!wp-content
-wp-content/*
-!wp-content/plugins
-wp-content/plugins/*
-!wp-content/themes
-wp-content/themes/*
+sql/*
+.vagrant
+
+# Exclude the wordpress installation except for vtone-specific things
+!wp
+wp/*
+!wp/wp-content
+wp/wp-content/*
+wp/wp-content/gallery/*
+wp/wp-content/uploads/*
+
+# Themes
+!wp/wp-content/themes
+wp/wp-content/themes/*
+!wp/wp-content/themes/vtone
+
+# Plugins
+!wp/wp-content/plugins
+wp/wp-content/plugins/*
 !wp-content/plugins/media-list
 !wp-content/plugins/prayer-schedule
 !wp-content/plugins/unique-downloader
@@ -16,9 +24,3 @@ wp-content/themes/*
 !wp-content/plugins/vtone-sections
 !wp-content/themes/vtone-modularity-lite-3
 !wp-content/themes/vtone
-.project
-.htaccess
-.settings
-.buildpath
-index.php
-.vagrant
