@@ -7,9 +7,6 @@ sql/*
 wp/*
 !wp/wp-content
 wp/wp-content/*
-wp/wp-content/gallery/*
-wp/wp-content/uploads/*
-wp/wp-content/cache/*
 
 # Themes
 !wp/wp-content/themes
