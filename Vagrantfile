@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "box-cutter/centos67"
+  config.vm.box = "box-cutter/centos68"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -38,7 +38,7 @@ Vagrant.configure(2) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  config.vm.synced_folder "../website", "/var/www/vhosts/vt-one.org/htdocs/wp",
+  config.vm.synced_folder "wp", "/var/www/vhosts/vt-one.org/htdocs/wp",
     :owner => "root", :group => "root", :mount_options => ['dmode=775', 'fmode=775']
 
 
