@@ -1,6 +1,7 @@
 
 body.page-template-event-page .navbar {
     z-index: 1;
+    margin-bottom: 0px;
 }
 
 div#intro-image-wrap {
@@ -10,7 +11,7 @@ div#intro-image-wrap {
 }
 
 img#intro-image {
-    top: -30px;
+    top: 0px;
     position: relative;
     display: none;
     width: 100%
@@ -27,11 +28,11 @@ section#section-description {
 }
 
 div#child-section-nav-wrap.affix-top {
-    margin-top: 500px;
+    /* margin-top: 500px; */
 }
 
 div#child-section-nav-wrap.affix {
-    margin-top: -565px;
+    margin-top: -65px;
 }
 
 /* Small Devices */
@@ -116,19 +117,19 @@ section > div.row {
 
 @media (min-width: 992px) {
     div.section-bg-1, div.section-bg-5 {
-        background-image: url(../images/IMG_3418_resize.jpg);
+        background-image: url(../images/sections/IMG_3418_resize.jpg);
         background-position: top left;
     }
     div.section-bg-2, div.section-bg-6 {
-        background-image: url(../images/IMG_3486_resize.jpg);
+        background-image: url(../images/sections/IMG_3486_resize.jpg);
         background-position: top right;
     }
     div.section-bg-3, div.section-bg-7 {
-        background-image: url(../images/IMG_3495_resize.jpg);
+        background-image: url(../images/sections/IMG_3495_resize.jpg);
         background-position: top left;
     }
     div.section-bg-4, div.section-bg-8 {
-        background-image: url(../images/IMG_9547_resize.jpg);
+        background-image: url(../images/sections/IMG_9547_resize.jpg);
         background-position: top right;
     }
 }

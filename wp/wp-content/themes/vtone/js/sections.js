@@ -3,15 +3,18 @@ jQuery(document).ready(function(){
     $window = jQuery(window);
 
     var height = 0;
+    var verticalOffset = 0;
+    var scrollSpeed = 5;
 
     jQuery('img#intro-image').each(function(){
         // declare the variable to affect the defined data-type
         var $scroll = jQuery(this);
+        var $menu = jQuery('div#child-section-nav-wrap');
 
         jQuery(window).scroll(function() {
             // HTML5 proves useful for helping with creating JS functions!
             // also, negative value because we're scrolling upwards
-            var yPos = ($window.scrollTop() / 5) - 30;
+            var yPos = ($window.scrollTop() / scrollSpeed) + verticalOffset;
 
             // background position
             var coords = yPos + 'px';
@@ -22,15 +25,27 @@ jQuery(document).ready(function(){
         }); // end window scroll
     });  // end section function
 
-    jQuery('section#intro').height(function() {
-        // the amount that the background will have scrolled by once The
-        // image is out of view, less the size of the menu bar
-        height = jQuery('img#intro-image').height();
-        if (height > 500) {
-            height = 500;
-        }
+    jQuery('div#child-section-nav-wrap').on('affix.bs.affix', function () {
+        jQuery(this).css({ "margin-top": "" });
+    })
 
+    jQuery('div#child-section-nav-wrap').on('affixed-top.bs.affix', function () {
+        jQuery(this).css({ "margin-top": height + "px" });
+    })
+
+    jQuery('section#intro').height(function() {
+        var imgHeight = jQuery('img#intro-image').height();
+        verticalOffset = Math.floor((imgHeight - 60) / scrollSpeed / -2);
+        verticalOffset = Math.floor(60 / scrollSpeed / -1);
+        height = imgHeight + verticalOffset * 2;
+
+        //console.log("Image Height: " + imgHeight);
+        //console.log("Vertical Offset: " + verticalOffset);
+        //console.log("Section Height: " + height + "px");
+
+        jQuery('img#intro-image').css({ top: verticalOffset + "px" });
         jQuery('div#child-section-nav-wrap').attr('data-offset-top', height + 65);
+        jQuery('div#child-section-nav-wrap').css({ "margin-top": height + "px" });
         return height + 'px';
     });
 
