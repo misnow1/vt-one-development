@@ -20,7 +20,6 @@ wp/wp-content/themes/*
 !wp/wp-content/plugins
 wp/wp-content/plugins/*
 !wp/wp-content/plugins/media-list
-!wp/wp-content/plugins/prayer-schedule
 !wp/wp-content/plugins/unique-downloader
 !wp/wp-content/plugins/vtone-bootstrap
 !wp/wp-content/plugins/vtone-sections
