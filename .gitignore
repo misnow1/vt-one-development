@@ -1,3 +1,4 @@
+
 sql/*
 .vagrant
 
@@ -8,6 +9,7 @@ wp/*
 wp/wp-content/*
 wp/wp-content/gallery/*
 wp/wp-content/uploads/*
+wp/wp-content/cache/*
 
 # Themes
 !wp/wp-content/themes
@@ -17,10 +19,8 @@ wp/wp-content/themes/*
 # Plugins
 !wp/wp-content/plugins
 wp/wp-content/plugins/*
-!wp-content/plugins/media-list
-!wp-content/plugins/prayer-schedule
-!wp-content/plugins/unique-downloader
-!wp-content/plugins/vtone-tabs
-!wp-content/plugins/vtone-sections
-!wp-content/themes/vtone-modularity-lite-3
-!wp-content/themes/vtone
+!wp/wp-content/plugins/media-list
+!wp/wp-content/plugins/prayer-schedule
+!wp/wp-content/plugins/unique-downloader
+!wp/wp-content/plugins/vtone-bootstrap
+!wp/wp-content/plugins/vtone-sections
