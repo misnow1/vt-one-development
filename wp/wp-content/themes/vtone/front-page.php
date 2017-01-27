@@ -18,7 +18,7 @@ if ($eventLink && $eventImage) {
 	<a href="<?php echo $eventLink ?>"><img id="event-image" src="<?php echo $eventImage ?>" alt="Event Image" /></a>
 </div>
 <script type="text/javascript">
-jQuery(document).ready(function() {
+jQuery(window).on('load', function() {
 	jQuery('#event-image-wrapper').height(function() {
 		var height = jQuery('#event-image').height();
 		console.log("derp");
