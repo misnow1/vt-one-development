@@ -26,8 +26,9 @@ function removeImageFromTable (id) {
 	});
 }
 
-//Uploading files
+// Uploading files
 var file_frame;
+var file_frame_event;
 
 jQuery(document).ready(function() {
     jQuery('.upload_image_button').on('click', function( event ){
@@ -65,5 +66,42 @@ jQuery(document).ready(function() {
 
         // Finally, open the modal
         file_frame.open();
+    });
+
+    jQuery('.event_upload_image_button').on('click', function( event ){
+
+        event.preventDefault();
+
+        // If the media frame already exists, reopen it.
+        if ( file_frame_event ) {
+            file_frame_event.open();
+            return;
+        }
+
+        // Create the media frame.
+        file_frame_event = wp.media.frames.file_frame = wp.media({
+            title: 'Slideshow Images',
+            button: { text: 'Add Images', },
+            library: { type: 'image' },
+            multiple: false // Set to true to allow multiple files to be selected
+        });
+
+        // When an image is selected, run a callback.
+        file_frame_event.on( 'select', function() {
+            // We set multiple to false so only get one image from the uploader
+            selection = file_frame_event.state().get('selection');
+
+            // do something with each attachment
+            selection.map( function( attachment ) {
+                // Do something with attachment.id and/or attachment.url here
+                attachment = attachment.toJSON();
+                console.log(attachment);
+                jQuery('#vtoneEventImageInput').val(attachment.url);
+            });
+
+        });
+
+        // Finally, open the modal
+        file_frame_event.open();
     });
 });

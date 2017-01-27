@@ -29,7 +29,7 @@ div.headline {
     text-align: center;
     padding: 50px 0px;
     background: #f2f2f2; /*url(images/transparent-runner.png) repeat-x 0 top;*/
-    /*box-shadow: 0 0 50px rgba(0,0,0,0.8);*/
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
     position: relative;
     z-index: 10;
 }
@@ -37,6 +37,11 @@ div.headline {
 div.content-front div.container {
     /*background: #fff url(images/transparent-runner.png) repeat-x 0 top;*/
     padding: 50px;
+}
+
+div.container-fluid {
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
 /* ----- Subpage Styles ----- */
@@ -129,12 +134,29 @@ span.social-icon {
 /* ----- Slideshow Styles ----- */
 
 #slideshow-wrapper {
+    position: relative;
     list-style: none outside none;
     /*min-height: 425px;*/
     overflow: hidden;
     padding: 0;
     background-color: black;
 	margin: 0;
+}
+
+/* ----- Event Image Wrapper ----- */
+
+#event-image-wrapper {
+    list-style: none outside none;
+    /* min-height: 425px; */
+    overflow: hidden;
+    padding: 0;
+    background-color: black;
+    margin: 0;
+    width: 100%;
+}
+
+#event-image {
+    width: 100%;
 }
 
 /* ----- Brand Menu ---- */

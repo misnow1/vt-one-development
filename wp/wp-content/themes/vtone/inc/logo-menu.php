@@ -10,7 +10,7 @@
 
 function vtone_logo_menu ($themeLocation = 'main_nav_menu') {
 	?>
-    <nav id="navbar-top" class="navbar navbar-default" role="banner">
+    <nav id="navbar-top" class="navbar navbar-default navbar-static-top" role="banner">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">

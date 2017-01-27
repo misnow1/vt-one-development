@@ -79,6 +79,4 @@ jQuery(document).ready(function(){
         }
     });  // end section function
 
-
-
 });

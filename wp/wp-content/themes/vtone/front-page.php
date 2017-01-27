@@ -5,11 +5,38 @@ get_header();
 
 ?>
 <!-- nav menu -->
-<div class="panel-affix affix-top" data-spy="affix" data-offset-top="79">
-
 <?php vtone_logo_menu() ?>
 
-</div> <!-- end spy panel -->
+<!-- event image -->
+<?php
+$eventLink = get_option('vtone-theme-event-link', '');
+$eventImage = get_option('vtone-theme-event-image', '');
+
+if ($eventLink && $eventImage) {
+?>
+<div id="event-image-wrapper">
+	<a href="<?php echo $eventLink ?>"><img id="event-image" src="<?php echo $eventImage ?>" alt="Event Image" /></a>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery('#event-image-wrapper').height(function() {
+		var height = jQuery('#event-image').height();
+		console.log("derp");
+		console.log(height);
+		return height + "px";
+	});
+});
+</script>
+<?php
+}
+?>
+
+<!-- Headline -->
+<div class="headline">
+<div class="container">
+<?php bloginfo('description') ?>
+</div>  <!-- end container -->
+</div>  <!-- end headline -->
 
 <!-- slideshow -->
 <div id="slideshow-wrapper">
@@ -30,7 +57,7 @@ get_header();
 	uasort($s, 'slideshowSorter');
 
 	?>
-	<div class="slider-wrapper theme-bar">
+	<div class="slider-wrapper theme-light">
 		<div class="ribbon"></div>
 		<div id="slider" class="nivoSlider">
 		<?php
@@ -66,14 +93,6 @@ get_header();
 	</script>
 	<!-- end slideshow -->
 </div>
-
-<!-- Headline -->
-<div class="headline">
-<div class="container">
-
-<?php bloginfo('description') ?>
-</div>  <!-- end container -->
-</div>  <!-- end headline -->
 
 <!-- Content -->
 <div class="content-front">

@@ -16,8 +16,7 @@ Template Name: Event Page with Sections
 
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-<?php vtone_template_sections_menu(); ?>
-<?php the_content(); ?>
+<?php vtone_template_event_page_sections(); ?>
 <?php edit_post_link( __( 'Edit', 'modularity' ), '<div class="clearfix"></div><div class="edit-link">', '</div>'); ?>
 <?php endwhile; endif; ?>
 

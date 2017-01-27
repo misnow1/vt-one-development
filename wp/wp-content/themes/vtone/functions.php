@@ -98,6 +98,7 @@ function vtone_modularity_lite_scripts () {
 		wp_enqueue_script('nivo.slider', get_template_directory_uri() . '/nivo-slider/jquery.nivo.slider.pack.js', array('jquery'), '3.2');
 		wp_enqueue_style('nivo.slider', get_template_directory_uri() . '/nivo-slider/nivo-slider.css', array(), '3.2');
 		wp_enqueue_style('nivo.slider.theme.bar', get_template_directory_uri() . '/nivo-slider/themes/bar/bar.css', array(), '3.2');
+		wp_enqueue_style('nivo.slider.theme.light', get_template_directory_uri() . '/nivo-slider/themes/light/light.css', array(), '3.2');
 	}
 
 	/*

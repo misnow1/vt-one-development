@@ -25,6 +25,16 @@ else {
 <form method="post" id="wpgcp-admin-form-element">
 	<?php wp_nonce_field( 'vtone-modularity-list-theme-opts-save' ); ?>
 
+	<h3>Event Link</h3>
+	<div class="form-group">
+		<label for="vtoneEventImageInput">Event Image</label>
+		<input type="text" class="form-control" name="vtone-ml-theme-opts-event-image" id="vtoneEventImageInput" value="<?php echo get_option('vtone-theme-event-image', '') ?>" />
+		<button type="button" class="button event_upload_image_button" name="wpml_event_image_select_button">Select Image</button>
+	</div>
+	<div class="form-group">
+		<label for="vtoneEventLinkInput">Event Link</label>
+		<input type="text" class="form-control" name="vtone-ml-theme-opts-event-link" id="vtoneEventLinkInput" value="<?php echo get_option('vtone-theme-event-link', '') ?>" />
+	</div>
 	<h3>Slideshow Images</h3>
 
 	<table class="widefat" id="vtone-ml-theme-ss-image-table">
