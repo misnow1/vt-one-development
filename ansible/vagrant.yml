@@ -1,0 +1,10 @@
+---
+
+- name: base provisioning
+  hosts:
+    - all
+  user: root
+  roles:
+    - mysql_server
+    - www
+  sudo: yes

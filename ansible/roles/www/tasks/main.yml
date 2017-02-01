@@ -1,0 +1,7 @@
+---
+
+- include: php.yml
+- include: httpd.yml
+- include: varnish.yml
+  when: configure_varnish is defined and configure_varnish == true
+- include: wordpress.yml

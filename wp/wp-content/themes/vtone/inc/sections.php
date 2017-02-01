@@ -1,6 +1,6 @@
 <?php
 
-$vtone_sections = [];
+$vtone_sections = array();
 $vtone_section_counter = 0;
 $vtone_active_section = false;
 

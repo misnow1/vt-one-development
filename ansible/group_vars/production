@@ -1,0 +1,14 @@
+---
+
+site_address: "https://{{ site_primary_domain }}"
+wp_address: "https://{{ site_primary_domain }}/wp"
+
+configure_ssl: true
+development: false
+
+db_host: mysql.vt-one.org
+db_name: vtoneorg_db
+db_user: vtoneorg_wp
+db_password: REDACTED
+
+wp_enable_cache: true

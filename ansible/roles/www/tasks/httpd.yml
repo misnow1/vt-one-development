@@ -1,0 +1,95 @@
+---
+
+- name: Install RPMForge
+  yum:
+    pkg: "{{ repoforge_url }}"
+    state: present
+
+- name: Install HTTPD packages
+  yum:
+    pkg: "{{ item }}"
+    state: latest
+  with_items: "{{ httpd_packages }}"
+
+- name: Disable EnableSendfile in httpd
+  replace:
+    dest: /etc/httpd/conf/httpd.conf
+    regexp: "#EnableSendfile off$"
+    replace: "EnableSendfile off"
+  when: development is defined and development == true
+  notify: restart_httpd
+
+- name: Move the default httpd port for varnish
+  replace:
+    dest: /etc/httpd/conf/httpd.conf
+    regexp: "^Listen .*$"
+    replace: "Listen 127.0.0.1:{{ varnish_backend_port }}"
+  when: configure_varnish is defined and configure_varnish == true
+  notify: restart_httpd
+
+- name: Set the default httpd port
+  replace:
+    dest: /etc/httpd/conf/httpd.conf
+    regexp: "^Listen .*$"
+    replace: "Listen {{ httpd_listen_port }}"
+  when: configure_varnish is not defined or configure_varnish == false
+  notify: restart_httpd
+
+- name: Configuring HTTPD for php
+  template:
+    src: etc/httpd/conf.d/php.conf.j2
+    dest: /etc/httpd/conf.d/php.conf
+  notify: restart_httpd
+
+- name: Configuring HTTPD for php fastcgi
+  template:
+    src: etc/httpd/conf.d/fastcgi.conf.j2
+    dest: /etc/httpd/conf.d/fastcgi.conf
+  notify: restart_httpd
+
+- name: Include vhosts in httpd
+  lineinfile:
+    name: /etc/httpd/conf/httpd.conf
+    line: "Include vhosts.d/*.conf"
+  notify: restart_httpd
+
+- name: Create HTTP configuration directories
+  file:
+    name: /etc/httpd/vhosts.d
+    state: directory
+    mode: 0755
+
+- name: Create website user
+  user:
+    name: "{{ document_root_owner }}"
+    groups: "{{ document_root_group }}"
+    state: present
+
+- name: Ensure document root exists
+  file:
+    name: "{{ document_root }}"
+    state: directory
+    owner: "{{ document_root_owner }}"
+    group: "{{ document_root_group }}"
+    mode: 04775
+
+- name: Configure HTTP virtualhost
+  template:
+    src: etc/httpd/vhosts.d/site.conf.j2
+    dest: /etc/httpd/vhosts.d/0{{ site_primary_domain }}.conf
+    mode: 0644
+  notify: restart_httpd
+
+- name: Configure HTTPS virtualhost
+  template:
+    src: etc/httpd/vhosts.d/site-ssl.conf.j2
+    dest: /etc/httpd/vhosts.d/0{{ site_primary_domain }}-ssl.conf
+    mode: 0644
+  when: configure_ssl is defined and configure_ssl == true
+  notify: restart_httpd
+
+- name: Ensure HTTPD is running and enabled
+  service:
+    name: httpd
+    state: started
+    enabled: yes

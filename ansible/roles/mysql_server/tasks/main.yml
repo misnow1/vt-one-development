@@ -1,0 +1,14 @@
+---
+
+- name: Install MySQL
+  yum:
+    pkg: "{{ item }}"
+    state: latest
+  with_items: "{{ mysql_packages }}"
+  notify: restart_mysqld
+
+- name: Ensure MySQLd is running and enabled
+  service:
+    name: mysqld
+    state: started
+    enabled: yes

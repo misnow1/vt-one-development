@@ -1,0 +1,16 @@
+---
+
+- name: restart_httpd
+  service:
+    name: httpd
+    state: restarted
+
+- name: restart_phpfpm
+  service:
+    name: php-fpm
+    state: restarted
+
+- name: restart_varnish
+  service:
+    name: varnish
+    state: restarted

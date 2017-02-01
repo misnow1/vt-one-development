@@ -1,0 +1,46 @@
+<VirtualHost _default_:8000>
+    ServerName www-master1.vt-one.org
+    ServerAlias vt-one.com
+    ServerAlias vt-one.net
+    ServerAlias vt-one.info
+    ServerAlias vt-one.org
+
+    ServerAdmin webmaster@vt-one.org
+
+    DocumentRoot /var/www/vhosts/vt-one.org/htdocs
+
+    ErrorLog /var/log/httpd/vt-one.org-error.log
+    CustomLog /var/log/httpd/vt-one.org-access.log common
+
+    Header set Access-Control-Allow-Origin "*"
+
+    <Directory /var/www/vhosts/vt-one.org/htdocs>
+        AllowOverride All
+        Options -Indexes
+
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+    RewriteEngine On
+
+    # Redirect to the proper hostname
+    RewriteCond %{HTTP_HOST} ^(www)?\.vt-one\.com$
+    RewriteRule ^(.*)$ https://vt-one.org$1 [L,R=301]
+
+    # Digital Downloads page
+    RewriteCond %{HTTP_HOST} ^digitaldownloads.vt-one.org$
+    RewriteRule ^(.*)$ https://vt-one.org/m/digital-downloads [L,R=301]
+
+    # Login page
+    RewriteCond %{REQUEST_URI} ^/wp/wp-(login|admin)
+    RewriteRule ^(.*)$ https://vt-one.org$1 [L,R]
+
+    # Live page to YouTube Channel
+    RewriteCond %{HTTP_HOST} ^live.vt-one.org$
+    RewriteRule ^(.*)$ https://www.youtube.com/VtOneOrg1 [L,R=301]
+
+    # Store to Square
+    Redirect /store https://squareup.com/market/vtone
+
+</VirtualHost>

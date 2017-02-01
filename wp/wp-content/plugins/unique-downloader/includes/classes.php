@@ -144,7 +144,7 @@ class WPUS_Manager {
 		$now = date('Y-m-d H:i:s');
 		$sourceIP = $_SERVER['REMOTE_ADDR'];
 		$userAgent = $_SERVER['HTTP_USER_AGENT'];
-        $caller = debug_backtrace()[1]['function'];
+        //$caller = debug_backtrace()[1]['function'];
 
 		$data = array (
 			'when' => $now,

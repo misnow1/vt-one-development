@@ -1,0 +1,59 @@
+---
+
+- name: Drop proper index file
+  template:
+    src: var/www/vhosts.d/site/htdocs/index.php.j2
+    dest: "{{ document_root }}/index.php"
+    owner: "{{ document_root_owner }}"
+    group: "{{ document_root_group }}"
+    mode: 0644
+
+- name: Configure .htaccess file
+  template:
+    src: var/www/vhosts.d/site/htdocs/.htaccess.j2
+    dest: "{{ document_root }}/.htaccess"
+    owner: "{{ document_root_owner }}"
+    group: "{{ document_root_group }}"
+    mode: 0664
+
+- name: Create Wordpress directory
+  file:
+    name: "{{ document_root }}/wp"
+    state: directory
+    owner: "{{ document_root_owner }}"
+    group: "{{ document_root_group }}"
+    mode: 04775
+
+- name: Configure Wordpress database connection
+  template:
+    src: var/www/vhosts.d/site/htdocs/wp/wp-config.php.j2
+    dest: "{{ document_root }}/wp/wp-config.php"
+    owner: "{{ document_root_owner }}"
+    group: "{{ document_root_group }}"
+    mode: 0644
+
+- name: Create database
+  mysql_db:
+    name: "{{ db_name }}"
+    state: present
+  register: db_created
+
+- name: Create mysql user
+  mysql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+    priv: "{{ db_name }}.*:ALL"
+    state: present
+  register: db_user_created
+
+- name: Restore website backup
+  shell: bzip2 -dc /vagrant/sql/{{ restore_sql_backup }} | sed 's_http://{{ site_primary_domain }}_{{ site_address }}_' | mysql -u {{ db_user }} -p{{ db_password }} -h {{ db_host }} {{ db_name }}
+  when: restore_sql_backup is defined and (db_created.changed or db_user_created.changed)
+
+- name: Correct Wordpress install location
+  shell: mysql -u {{ db_user }} -p{{ db_password }} -h {{ db_host }} {{ db_name }} -e "UPDATE wp_options SET option_value='{{ wp_address }}' WHERE option_name='siteurl';"
+  when: development is defined and development == true
+
+- name: Correct site URL
+  shell: mysql -u {{ db_user }} -p{{ db_password }} -h {{ db_host }} {{ db_name }} -e "UPDATE wp_options SET option_value='{{ site_address }}' WHERE option_name='home';"
+  when: development is defined and development == true

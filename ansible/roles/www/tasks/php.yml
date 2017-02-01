@@ -1,0 +1,38 @@
+---
+
+- name: Install Remi Repository
+  yum:
+    pkg: "{{ remi_url }}"
+    state: present
+
+- name: Install PHP packages
+  yum:
+    pkg: "{{ item }}"
+    state: latest
+  with_items: "{{ php_packages }}"
+
+- name: Configuring PHP for development
+  template:
+    src: etc/php.ini.j2
+    dest: /etc/php.ini
+  when: development is defined and development == true
+  notify: restart_httpd
+
+- name: Configure php-fpm
+  template:
+    src: etc/php-fpm.d/www.conf.j2
+    dest: /etc/php-fpm.d/www.conf
+  notify: restart_phpfpm
+
+- name: Create php-fpm directory
+  file:
+    name: /usr/lib/cgi-bin
+    mode: 0755
+    owner: root
+    group: root
+
+- name: Ensure php-fpm is started and enabled
+  service:
+    name: php-fpm
+    state: started
+    enabled: yes

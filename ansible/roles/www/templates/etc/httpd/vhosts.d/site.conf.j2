@@ -1,0 +1,52 @@
+{% if configure_varnish %}
+<VirtualHost _default_:{{ varnish_backend_port }}>
+{% else %}
+<VirtualHost _default_:{{ httpd_listen_port }}>
+{% endif %}
+    ServerName {{ ansible_fqdn }}
+{% for alias in server_aliases_http %}
+    ServerAlias {{ alias }}
+{% endfor %}
+
+    ServerAdmin webmaster@{{ site_primary_domain }}
+
+    DocumentRoot {{ document_root }}
+
+    ErrorLog /var/log/httpd/{{ site_primary_domain }}-error.log
+    CustomLog /var/log/httpd/{{ site_primary_domain }}-access.log common
+
+    Header set Access-Control-Allow-Origin "*"
+
+    <Directory {{ document_root }}>
+        AllowOverride All
+        Options -Indexes
+
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+    RewriteEngine On
+
+    # Redirect to the proper hostname
+    RewriteCond %{HTTP_HOST} ^(www\.)?{{ site_primary_domain | regex_replace("\.", "\\.") }}$
+    RewriteCond %{HTTP_HOST} ^localhost$
+    RewriteRule ^(.*)$ {{ site_address }}$1 [L,R=301]
+
+    # Digital Downloads page
+    RewriteCond %{HTTP_HOST} ^digitaldownloads\.{{ site_primary_domain | regex_replace("\.", "\\.") }}$
+    RewriteRule ^(.*)$ {{ site_address }}/m/digital-downloads [L,R=301]
+
+{% if configure_ssl %}
+    # Login page
+    RewriteCond %{REQUEST_URI} ^/wp/wp-(login|admin)
+    RewriteRule ^(.*)$ {{ site_address }}$1 [L,R]
+
+{% endif %}
+    # Live page to YouTube Channel
+    RewriteCond %{HTTP_HOST} ^live\.{{ site_primary_domain | regex_replace("\.", "\\.") }}$
+    RewriteRule ^(.*)$ https://www.youtube.com/VtOneOrg1 [L,R=301]
+
+    # Store to Square
+    Redirect /store https://squareup.com/market/vtone
+
+</VirtualHost>

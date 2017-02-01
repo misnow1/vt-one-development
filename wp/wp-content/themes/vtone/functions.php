@@ -79,7 +79,7 @@ function vtone_modularity_lite_scripts () {
 	/*
 	 * Core theme styles and such
 	 */
-	wp_enqueue_style('vtone', get_stylesheet_uri(), array(), '20151208.01');
+	wp_enqueue_style('vtone', get_stylesheet_uri(), array(), '20170201.01');
 
 	/*
 	 * NGG overrides

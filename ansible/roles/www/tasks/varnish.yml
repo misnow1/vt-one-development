@@ -1,0 +1,32 @@
+---
+
+- name: Install Varnish Repo
+  yum:
+    name: https://repo.varnish-cache.org/redhat/varnish-4.1.el6.rpm
+    state: present
+
+- name: Install Varnish
+  yum:
+    name: varnish
+    state: latest
+  notify: restart_varnish
+
+- name: Configure Varnish sysconfig
+  template:
+    src: etc/sysconfig/varnish.j2
+    dest: /etc/sysconfig/varnish
+    mode: 0644
+  notify: restart_varnish
+
+- name: Configure Varnish
+  template:
+    src: etc/varnish/default.vcl.j2
+    dest: /etc/varnish/default.vcl
+    mode: 0644
+  notify: restart_varnish
+
+- name: Ensure varnish is started and enabled
+  service:
+    name: varnish
+    state: started
+    enabled: yes

@@ -1,0 +1,56 @@
+---
+
+site_primary_domain: vt-one.org
+
+server_aliases_http:
+  - vt-one.org
+  - vt-one.com
+  - vt-one.info
+  - vt-one.net
+
+server_aliases_https:
+  - vt-one.com
+
+document_root: /var/www/vhosts/{{ site_primary_domain }}/htdocs
+wp_config: "{{ document_root }}/wp/wp-config.php"
+
+httpd_user: apache
+httpd_group: apache
+
+configure_varnish: true
+httpd_listen_port: 80
+varnish_backend_port: 9000
+
+document_root_owner: vtone
+document_root_group: "{{ httpd_group }}"
+
+php_timezone: America/New_York
+
+httpd_packages:
+  - httpd
+  - mod_fastcgi
+
+remi_url: http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+repoforge_url: http://repository.it4i.cz/mirrors/repoforge/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+
+php_packages:
+  - php-mbstring
+  - php-cli
+  - php
+  - php-pear
+  - php-pspell
+  - php-mysql
+  - php-xml
+  - php-process
+  - php-xmlrpc
+  - php-common
+  - php-pdo
+  - php-pecl-memcache
+  - php-gd
+  - php-devel
+  - php-fpm
+
+mysql_packages:
+  - mysql
+  - mysql-server
+  - MySQL-python

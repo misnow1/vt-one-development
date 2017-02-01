@@ -1,0 +1,67 @@
+<VirtualHost *:443>
+    ServerName {{ ansible_fqdn }}
+{% for alias in server_aliases_https %}
+    ServerAlias {{ alias }}
+{% endfor %}
+
+    ServerAdmin webmaster@{{ site_primary_domain }}
+
+    DocumentRoot {{ document_root }}
+
+    ErrorLog /var/log/httpd/{{ site_primary_domain }}-ssl-error.log
+    CustomLog /var/log/httpd/{{ site_primary_domain }}-ssl-access.log common
+
+    SSLEngine on
+    SSLCertificateFile /etc/httpd/vhosts.d/{{ site_primary_domain }}.pem
+    SSLCertificateKeyFile /etc/httpd/vhosts.d/{{ site_primary_domain }}.key
+    SSLCACertificateFile /etc/httpd/vhosts.d/{{ site_primary_domain }}.ca-bundle
+
+    # intermediate configuration, tweak to your needs
+    SSLProtocol             all -SSLv2 -SSLv3
+    SSLCipherSuite          ECDHE-ECDSA-CHACHA20-POLY1305:\
+        ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:\
+        ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:\
+        ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:\
+        DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:\
+        ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:\
+        ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:\
+        ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:\
+        ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:\
+        DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:\
+        ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:\
+        AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:\
+        AES256-SHA:DES-CBC3-SHA:!DSS
+    SSLHonorCipherOrder     on
+
+    SetEnvIf User-Agent ".*MSIE.*" \
+        nokeepalive ssl-unclean-shutdown \
+        downgrade-1.0 force-response-1.0
+
+    Header set Access-Control-Allow-Origin "*"
+
+    <Directory {{ document_root }}>
+        AllowOverride All
+        Options -Indexes
+
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+    RewriteEngine On
+
+    # Digital Downloads page
+    RewriteCond %{HTTP_HOST} ^digitaldownloads.vt-one.org$
+    RewriteRule ^(.*)$ https://vt-one.org/m/digital-downloads [L,R=301]
+
+    # Login page
+    RewriteCond %{REQUEST_URI} ^/wp/wp-(login|admin)
+    RewriteRule ^(.*)$ https://vt-one.org$1 [L,R]
+
+    # Live page to YouTube Channel
+    RewriteCond %{HTTP_HOST} ^live.vt-one.org$
+    RewriteRule ^(.*)$ https://www.youtube.com/VtOneOrg1 [L,R=301]
+
+    # Store to Square
+    Redirect /store https://squareup.com/market/vtone
+
+</VirtualHost>

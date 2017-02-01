@@ -1,0 +1,34 @@
+<?php
+/** Enable W3 Total Cache */
+define('WP_CACHE', {{ wp_enable_cache }}); // Added by W3 Total Cache
+
+// ** MySQL settings ** //
+define('DB_NAME', '{{ db_name }}');    // The name of the database
+define('DB_USER', '{{ db_user }}');     // Your MySQL username
+define('DB_PASSWORD', '{{ db_password }}'); // ...and password
+define('DB_HOST', '{{ db_host }}');    // 99% chance you won't need to change this value
+define('DB_CHARSET', '');
+define('DB_COLLATE', 'latin1_swedish_ci');
+
+// Change SECRET_KEY to a unique phrase.  You won't have to remember it later,
+// so make it long and complicated.  You can visit http://api.wordpress.org/secret-key/1.0/
+// to get a secret key generated for you, or just make something up.
+define('SECRET_KEY', 'H|D6!-Ox@0E>_Y<q#,H.\\^1\':[\"^\\2k*DR(~ZCEHC\'Fw^mg7K$C5:v*yQyb!\\)G)'); // Change this to a unique phrase.
+
+// You can have multiple installations in one database if you give each a unique prefix
+$table_prefix  = 'wp_';   // Only numbers, letters, and underscores please!
+
+// Change this to localize WordPress.  A corresponding MO file for the
+// chosen language must be installed to wp-content/languages.
+// For example, install de.mo to wp-content/languages and set WPLANG to 'de'
+// to enable German language support.
+define ('WPLANG', 'en_US');
+
+// for debugging, but this is miserable in production
+// define('SAVEQUERIES', true);
+
+/* That's all, stop editing! Happy blogging. */
+
+define('ABSPATH', dirname(__FILE__).'/');
+require_once(ABSPATH.'wp-settings.php');
+?>
