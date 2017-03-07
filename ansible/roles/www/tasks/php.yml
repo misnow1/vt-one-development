@@ -27,6 +27,7 @@
 - name: Create php-fpm directory
   file:
     name: /usr/lib/cgi-bin
+    state: directory
     mode: 0755
     owner: root
     group: root

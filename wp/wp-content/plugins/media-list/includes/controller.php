@@ -43,6 +43,7 @@ function wpml_handle_shortcode ( $atts ) {
 			'eventImage' => $eventImage,
 			'eventName' => $eventName,
 			'mediaDescription' => $mediaDescription,
+			'guid' => $item->guid,
 		);
 	}
 
@@ -73,7 +74,9 @@ function wpml_handle_shortcode ( $atts ) {
 			<div class="panel-body">
 				<img class="img-rounded img-responsive" alt="<?php echo $eventName ?>" src="<?php echo $eventImage ?>" />
 				<p><?php echo $mediaDescription ?></p>
-				<p><a href="<?php echo $item->guid ?>">Download</a></p>
+				<p><a href="<?php echo $item['guid'] ?>">Download</a>
+				<br/>
+				<span class="save-media" style="font-style: italic">(To save the audio file, right-click the link and select Save Link As)</span></p>
 			</div>
 		</div> <!-- end panel -->
 	</div> <!-- end column -->
